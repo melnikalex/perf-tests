@@ -1,0 +1,4 @@
+    - rolearn: ROLE_ARN
+      username: clusterloader
+      groups:
+      - system:masters

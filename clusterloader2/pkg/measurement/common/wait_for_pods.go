@@ -27,7 +27,7 @@ import (
 
 const (
 	defaultWaitForPodsTimeout         = 60 * time.Second
-	defaultWaitForPodsInterval        = 5 * time.Second
+	defaultWaitForPodsInterval        = 1 * time.Second
 	waitForRunningPodsMeasurementName = "WaitForRunningPods"
 )
 
@@ -51,6 +51,18 @@ func (w *waitForRunningPodsMeasurement) Execute(config *measurement.Config) ([]m
 	if err != nil {
 		return nil, err
 	}
+
+	frequency, err := util.GetFloat64(config.Params, "qps")
+	if err != nil {
+		return nil, err
+	}
+	var waitInterval time.Duration
+	if _, ok := err.(*util.ErrKeyNotFound); ok {
+		waitInterval = defaultWaitForPodsInterval
+	} else {
+		waitInterval = time.Duration(int(float64(time.Second) / frequency))
+	}
+
 	selector := measurementutil.NewObjectSelector()
 	if err := selector.Parse(config.Params); err != nil {
 		return nil, err
@@ -68,9 +80,10 @@ func (w *waitForRunningPodsMeasurement) Execute(config *measurement.Config) ([]m
 		Selector:            selector,
 		DesiredPodCount:     func() int { return desiredPodCount },
 		CallerName:          w.String(),
-		WaitForPodsInterval: defaultWaitForPodsInterval,
+		WaitForPodsInterval: waitInterval,
 	}
-	return nil, measurementutil.WaitForPods(config.ClusterFramework.GetClientSets().GetClient(), stopCh, options)
+	go measurementutil.WaitForPods(config.ClusterFramework.GetClientSets().GetClient(), stopCh, options)
+	return nil, nil
 }
 
 // Dispose cleans up after the measurement.

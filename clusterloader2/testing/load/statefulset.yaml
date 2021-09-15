@@ -14,7 +14,7 @@ spec:
       group: load
       name: {{.Name}}
   serviceName: {{.Name}}
-  replicas: {{RandIntRange .ReplicasMin .ReplicasMax}}
+  replicas: RuntimeInjection.RandomInt({{.ReplicasMax}})
   template:
     metadata:
       labels:

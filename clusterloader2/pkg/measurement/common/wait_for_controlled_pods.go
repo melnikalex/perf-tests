@@ -48,7 +48,7 @@ import (
 const (
 	defaultSyncTimeout               = 60 * time.Second
 	defaultOperationTimeout          = 10 * time.Minute
-	checkControlledPodsInterval      = 5 * time.Second
+	checkControlledPodsInterval      = 1 * time.Second
 	informerSyncTimeout              = time.Minute
 	waitForControlledPodsRunningName = "WaitForControlledPodsRunning"
 

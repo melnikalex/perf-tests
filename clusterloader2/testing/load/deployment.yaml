@@ -12,7 +12,7 @@ metadata:
     group: load
     svc: {{.SvcName}}-{{.Index}}
 spec:
-  replicas: {{RandIntRange .ReplicasMin .ReplicasMax}}
+  replicas: RuntimeInjection.RandomInt({{.ReplicasMax}})
   selector:
     matchLabels:
       name: {{.Name}}

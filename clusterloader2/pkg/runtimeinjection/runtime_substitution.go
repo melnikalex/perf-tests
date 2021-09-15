@@ -47,7 +47,6 @@ func SubstituteRuntimeInjections(obj *unstructured.Unstructured) error {
 		}
 	}
 
-	fmt.Println(objString)
 	err = obj.UnmarshalJSON([]byte(objString))
 	if err != nil {
 		return fmt.Errorf("Error unmarshalling in runtimeinjection: %v", err)
