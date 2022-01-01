@@ -29,15 +29,6 @@
 {{$mediumStatefulSetSize := .mediumStatefulSetSize}}
 {{$mediumStatefulSetsPerNamespace := .mediumStatefulSetsPerNamespace}}
 
-# Jobs
-{{$bigJobSize := .bigJobSize}}
-{{$bigJobsPerNamespace := .bigJobsPerNamespace}}
-{{$mediumJobSize := .mediumJobSize}}
-{{$mediumJobsPerNamespace := .mediumJobsPerNamespace}}
-{{$smallJobSize := .smallJobSize}}
-{{$smallJobsPerNamespace := .smallJobsPerNamespace}}
-{{$completionsFactor := MultiplyFloat 2 $testMaxReplicaFactor}}
-
 # PV
 {{$pvSmallStatefulSetSize := DefaultParam .pvSmallStatefulSetSize 0}}
 {{$pvMediumStatefulSetSize := DefaultParam .pvMediumStatefulSetSize 0}}
