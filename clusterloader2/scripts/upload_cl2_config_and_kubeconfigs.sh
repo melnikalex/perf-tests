@@ -21,3 +21,5 @@ for kubeconfig in "${@:4}"
 do
     aws s3 cp $kubeconfig s3://$BUCKET/$config_prefix/
 done
+
+echo "\n Set 'configS3Prefix' to $config_prefix in lib/app.ts in ASGInstanceRefreshHelperCDK"

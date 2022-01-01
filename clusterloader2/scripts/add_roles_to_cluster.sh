@@ -16,7 +16,7 @@ do
     kubectl --kubeconfig $KUBECONFIG_PATH get cm -n kube-system aws-auth -oyaml > /tmp/aws-auth.yaml
     SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
     if cat /tmp/aws-auth.yaml | grep $role > /dev/null; then
-        echo "Role already exists in aws-auth configmap"
+        echo "Role $role already exists in aws-auth configmap"
     else
         echo "Applying $role to cluster $KUBECONFIG_PATH..."
         line=$(grep -n 'mapRoles: |' /tmp/aws-auth.yaml  | cut -d ":" -f 1)

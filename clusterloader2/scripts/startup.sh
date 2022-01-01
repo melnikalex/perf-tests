@@ -47,7 +47,7 @@ if [ "$#" -eq 4 ]; then
             kubectl --kubeconfig config/$KUBECONFIG_NAME delete ns $n &
             echo "Deleting ns $n"
         fi
-        sleep 1
+        sleep 100
     done
     sleep 60
 
